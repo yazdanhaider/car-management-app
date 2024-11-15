@@ -1,0 +1,267 @@
+{
+  "info": {
+    "name": "Car Management API",
+    "description": "Complete API documentation for the Car Management System",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/auth/signup",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "description": "Register a new user. Password must be at least 6 characters long."
+          },
+          "response": [
+            {
+              "status": "201 Created",
+              "body": {
+                "status": "success",
+                "data": {
+                  "user": {
+                    "name": "Test User",
+                    "email": "test@example.com",
+                    "_id": "user_id"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "description": "Login with email and password. Returns JWT token in cookie."
+          },
+          "response": [
+            {
+              "status": "200 OK",
+              "body": {
+                "status": "success",
+                "data": {
+                  "user": {
+                    "name": "Test User",
+                    "email": "test@example.com",
+                    "_id": "user_id"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/auth/logout",
+            "description": "Logout user and clear JWT cookie"
+          },
+          "response": [
+            {
+              "status": "200 OK",
+              "body": {
+                "status": "success"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/auth/me",
+            "description": "Get current authenticated user's profile"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cars",
+      "item": [
+        {
+          "name": "Get All Cars",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cars",
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "createdAt",
+                  "description": "Field to sort by",
+                  "disabled": true
+                },
+                {
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order (asc/desc)",
+                  "disabled": true
+                },
+                {
+                  "key": "tags",
+                  "value": "electric,luxury",
+                  "description": "Filter by tags (comma-separated)",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all cars for authenticated user with optional sorting and filtering"
+          }
+        },
+        {
+          "name": "Search Cars",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cars/search",
+              "query": [
+                {
+                  "key": "q",
+                  "value": "tesla",
+                  "description": "Search query"
+                },
+                {
+                  "key": "tags",
+                  "value": "electric,luxury",
+                  "description": "Filter by tags (comma-separated)",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Search cars by text and tags"
+          }
+        },
+        {
+          "name": "Get Single Car",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/cars/:id",
+            "description": "Get a single car by ID"
+          }
+        },
+        {
+          "name": "Create Car",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/cars",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Tesla Model S\",\n  \"description\": \"Luxury electric sedan with amazing performance\",\n  \"images\": [\"https://example.com/tesla-1.jpg\", \"https://example.com/tesla-2.jpg\"],\n  \"tags\": [\"electric\", \"luxury\", \"sedan\"]\n}"
+            },
+            "description": "Create a new car listing"
+          }
+        },
+        {
+          "name": "Update Car",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/cars/:id",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Tesla Model S\",\n  \"description\": \"Updated luxury electric sedan\",\n  \"images\": [\"https://example.com/tesla-updated.jpg\"],\n  \"tags\": [\"electric\", \"luxury\", \"updated\"]\n}"
+            },
+            "description": "Update an existing car listing"
+          }
+        },
+        {
+          "name": "Delete Car",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/cars/:id",
+            "description": "Delete a car listing"
+          },
+          "response": [
+            {
+              "status": "200 OK",
+              "body": {
+                "message": "Car deleted successfully"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ]
+} 
