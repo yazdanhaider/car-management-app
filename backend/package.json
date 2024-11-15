@@ -1,26 +1,13 @@
 {
   "name": "car-management-backend",
   "version": "1.0.0",
-  "description": "Backend for Car Management Application",
-  "main": "index.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "seed": "node src/scripts/seedDB.js"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.3",
-    "zod": "^3.21.4",
-    "cookie-parser": "^1.4.6",
-    "helmet": "^7.1.0",
-    "express-rate-limit": "^7.1.5"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "vercel-build": "echo 'Build step completed'"
   }
 } 
