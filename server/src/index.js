@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import { errorHandler } from './middlewares/errorHandler.js';
 import authRoutes from './routes/auth.routes.js';
 import carRoutes from './routes/car.routes.js';
+import docsRoutes from './routes/docs.routes.js';
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
+app.use('/api/docs', docsRoutes);
 
 // Error handler
 app.use(errorHandler);
