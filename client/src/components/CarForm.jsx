@@ -3,8 +3,6 @@ import { Form, Field, FieldArray } from 'formik';
 export default function CarForm({ errors, touched, setFieldValue, values, isSubmitting, submitText }) {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    
-    // Check if total images would exceed 10
     const totalImages = files.length + (values.images?.length || 0);
     if (totalImages > 10) {
       alert('Maximum 10 images allowed');
